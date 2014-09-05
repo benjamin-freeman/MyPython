@@ -1,9 +1,9 @@
 import wx
 import sys
-import math
 import threading
+import calculation
+import serial
 
-EARTH_RADIUS = 6377.830
 class flyData(threading.Thread):
 	"""docstring for flyData"""
 	def __init__(self, arg):
@@ -47,23 +47,11 @@ class App(wx.App):
 
 	def OnExit(self):
 		print "OnExit"
-
-def rad(temp):
-	return temp*math.pi/180.0
-
-def CalDistance(lat1,lng1,lat2,lng2):
-	radLat1 = rad(lat1)
-	radLat2 = rad(lat2)
-	a = radLat1 - radLat2
-	b = rad(lng1) - rad(lng2)
-	s = 2*math.asin(math.sqrt(math.pow(a/2,2)+math.cos(radLat1)*math.cos(radLat2)*math.pow(math.sin(b/2),2)))
-	s = s*EARTH_RADIUS*1000
-	return s
 		
 if __name__=='__main__':
 	#app = App(redirect=True)
 	print "before MainLoop"
 	#app.MainLoop()
 	print "after MainLoop"
-	t = CalDistance(39.9327010000,116.3976510000,39.1420810000,117.1818350000)#39.9327010000,116.3976510000   39.1420810000,117.1818350000
+	t = calculation.CalDistance(39.9327010000,116.3976510000,39.1420810000,117.1818350000)#39.9327010000,116.3976510000   39.1420810000,117.1818350000
 	print t
